@@ -27,12 +27,11 @@ var SplitPanelCustomAttribute = (function () {
         var _this = this;
         this.taskQueue.queueMicroTask(function () {
             var panelItems = _this.getPanelItems();
-            console.log(panelItems);
             _this.splitjs = Split(panelItems, {
                 sizes: _this.sizes,
                 minSize: _this.minSize,
                 gutterSize: _this.gutterSize,
-                direction: _this.vertical ? 'vertical' : 'horizontal'
+                direction: _this.vertical ? splitDirection.vertical : splitDirection.horizontal
             });
         });
     };

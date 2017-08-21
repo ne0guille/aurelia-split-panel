@@ -26,13 +26,12 @@ export class SplitPanelCustomAttribute {
   split(): void {
     this.taskQueue.queueMicroTask(() => {
       const panelItems = this.getPanelItems();
-      console.log(panelItems);
 
       this.splitjs = Split(panelItems, {
         sizes: this.sizes,
         minSize: this.minSize,
         gutterSize: this.gutterSize,
-        direction: this.vertical ? 'vertical' : 'horizontal'
+        direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal
       });
     });
   }
