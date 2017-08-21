@@ -29,6 +29,7 @@ var SplitPanelCustomAttribute = function () {
         var _this = this;
         this.taskQueue.queueMicroTask(function () {
             var panelItems = _this.getPanelItems();
+            if (!(_this.vertical && _this.element.style.height && _this.element.clientHeight)) _this.setParentHeight();
             _this.splitjs = Split(panelItems, {
                 sizes: _this.sizes,
                 minSize: _this.minSize,
@@ -36,6 +37,14 @@ var SplitPanelCustomAttribute = function () {
                 direction: _this.vertical ? splitDirection.vertical : splitDirection.horizontal
             });
         });
+    };
+    SplitPanelCustomAttribute.prototype.getElementHeight = function (element) {
+        return element.clientHeight || element.offsetHeight || Number.parseInt(element.style.height) || 0;
+    };
+    SplitPanelCustomAttribute.prototype.setParentHeight = function () {
+        var parentHeight = String(this.getElementHeight(this.element));
+        var height = parentHeight === '0' ? this.getElementHeight(this.element.children[0]) : parentHeight;
+        this.element.style.height = height + "px";
     };
     SplitPanelCustomAttribute.prototype.getPanelItems = function () {
         if (!(this.element.children && this.element.children.length)) return [];
