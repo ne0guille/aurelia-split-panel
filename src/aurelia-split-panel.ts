@@ -1,4 +1,4 @@
-import { bindable, bindingMode, TaskQueue, inject } from 'aurelia-framework';
+import { bindable, bindingMode, inject, TaskQueue } from 'aurelia-framework';
 
 import * as Split from 'split.js';
 
@@ -26,6 +26,7 @@ export class SplitPanelCustomAttribute {
   split(): void {
     this.taskQueue.queueMicroTask(() => {
       const panelItems = this.getPanelItems();
+      if (!(this.vertical && this.element.style.height && this.element.clientHeight)) this.setParentHeight();
 
       this.splitjs = Split(panelItems, {
         sizes: this.sizes,
@@ -34,6 +35,17 @@ export class SplitPanelCustomAttribute {
         direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal
       });
     });
+  }
+
+  private getElementHeight(element): number {
+    return element.clientHeight || element.offsetHeight || Number.parseInt(element.style.height) || 0;
+  }
+
+  private setParentHeight(): void {
+    const parentHeight = String(this.getElementHeight(this.element));
+    const height = parentHeight === '0' ? this.getElementHeight(this.element.children[0]) : parentHeight;
+
+    this.element.style.height = `${height}px`;
   }
 
   private getPanelItems(): string[] {
