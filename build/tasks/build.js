@@ -61,8 +61,6 @@ gulp.task('build-amd', function () {
     return buildFromTs(tsProjectSystem, paths.output + 'amd', true);
 });
 
-
-
 gulp.task('build-system', function () {
   return buildFromTs(tsProjectSystem, paths.output + 'system', true);
 });

@@ -1,22 +1,23 @@
 {
-  "name": "aurelia-skeleton-plugin",
+  "name": "aurelia-split-panel",
   "version": "1.0.3",
-  "description": "A starter kit for building an Aurelia plugin.",
+  "description": "A split screen/panel aurelia plugin.",
   "keywords": [
     "aurelia",
     "plugin",
-    "skeleton"
+    "split",
+    "panel"
   ],
   "homepage": "http://aurelia.io",
   "bugs": {
-    "url": "https://github.com/aurelia/skeleton-plugin/issues"
+    "url": "https://github.com/ne0guille/aurelia-split-panel/issues"
   },
   "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
+  "author": "Guillermo Eyherabide <eyherabideg@gmail.com>",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia/skeleton-plugin"
+    "url": "https://github.com/ne0guille/aurelia-split-panel"
   },
   "devDependencies": {
     "aurelia-tools": "1.0.0",
@@ -35,12 +36,9 @@
     "gulp-babel": "6.1.2",
     "gulp-bump": "2.7.0",
     "gulp-changed": "3.1.0",
-    "gulp-concat": "2.6.1",
     "gulp-eslint": "3.0.1",
     "gulp-ignore": "2.0.2",
-    "gulp-insert": "0.5.0",
     "gulp-plumber": "1.1.0",
-    "gulp-rename": "1.2.2",
     "gulp-typescript": "3.2.1",
     "gulp-yuidoc": "0.1.2",
     "isparta": "4.0.0",
