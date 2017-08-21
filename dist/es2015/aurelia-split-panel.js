@@ -55,7 +55,7 @@ var SplitPanelCustomAttribute = function () {
     __decorate([aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })], SplitPanelCustomAttribute.prototype, "minSize", void 0);
     __decorate([aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })], SplitPanelCustomAttribute.prototype, "gutterSize", void 0);
     __decorate([aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })], SplitPanelCustomAttribute.prototype, "vertical", void 0);
-    SplitPanelCustomAttribute = __decorate([aurelia_framework_1.autoinject], SplitPanelCustomAttribute);
+    SplitPanelCustomAttribute = __decorate([aurelia_framework_1.inject(Element, aurelia_framework_1.TaskQueue)], SplitPanelCustomAttribute);
     return SplitPanelCustomAttribute;
 }();
 exports.SplitPanelCustomAttribute = SplitPanelCustomAttribute;

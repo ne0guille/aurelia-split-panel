@@ -1,10 +1,10 @@
-import { autoinject, bindable, bindingMode, TaskQueue } from 'aurelia-framework';
+import { bindable, bindingMode, TaskQueue, inject } from 'aurelia-framework';
 
 import * as Split from 'split.js';
 
 const splitDirection = { vertical: 'vertical', horizontal: 'horizontal' };
 
-@autoinject
+@inject(Element, TaskQueue)
 export class SplitPanelCustomAttribute {
   @bindable({ defaultBindingMode: bindingMode.oneWay }) sizes: Array<number>;
   @bindable({ defaultBindingMode: bindingMode.oneWay }) minSize: Array<number> | number = 100;
@@ -13,7 +13,7 @@ export class SplitPanelCustomAttribute {
 
   private splitjs: any;
 
-  constructor(private element: HTMLElement, private taskQueue: TaskQueue) { }
+  constructor(private element: Element, private taskQueue: TaskQueue) { }
 
   attached() {
     this.split();

@@ -60,7 +60,7 @@ var SplitPanelCustomAttribute = (function () {
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
     ], SplitPanelCustomAttribute.prototype, "vertical", void 0);
     SplitPanelCustomAttribute = __decorate([
-        aurelia_framework_1.autoinject
+        aurelia_framework_1.inject(Element, aurelia_framework_1.TaskQueue)
     ], SplitPanelCustomAttribute);
     return SplitPanelCustomAttribute;
 }());
