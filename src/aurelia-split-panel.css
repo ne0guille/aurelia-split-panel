@@ -25,7 +25,7 @@
     background-image: url('../static/horizontal.png');
   }
 
-  .split.split-horizontal {
+  .split.split-horizontal, .gutter.gutter-horizontal {
     height: 100%;
     width: 100%;
     float: left;
