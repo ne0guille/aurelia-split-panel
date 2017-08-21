@@ -28,12 +28,12 @@ Panels must specify an Id.
 
   **Options**
   https://nathancahill.github.io/Split.js/
-
+```
   sizes: Array<number>; Initial sizes of each element in percents.
   minSize: Array<number> | number = 100; Minimum size of each element in pixels.
   gutterSize: number = 10; Gutter size in pixels.
   vertical: boolean = false; Direction to split: horizontal or vertical.
-
+```
 
 ``` 
 <div split-panel="sizes: [40, 60]; minSize: 200; gutterSize: 5; vertical: true">
