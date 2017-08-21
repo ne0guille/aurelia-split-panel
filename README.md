@@ -7,6 +7,9 @@ Simply aurelia custom attribute to split screen using https://github.com/nathanc
 **Plugin Setup**
 `aurelia.use.plugin(PLATFORM.moduleName('aurelia-split-panel'));`
 
+**add style in webpack**
+`'aurelia-split-panel/dist/aurelia-split-panel.css'`
+
 **Usage**
 split-panel custom attribute needs to be placed on the parent of the panels to be splitted.
 Panels must specify an Id.
