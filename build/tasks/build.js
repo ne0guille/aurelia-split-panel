@@ -54,7 +54,12 @@ gulp.task('build-es5', function () {
 });
 
 gulp.task('build-commonjs', function () {
-    return buildFromTs(tsProjectCJS, paths.output + 'commonjs', true);
+    return tsProjectCJS.src()   
+    .pipe(sourcemaps.init())
+    .pipe(tsProjectCJS())  
+    .pipe(to5(assign({}, compilerOptions.es2015())))
+    .pipe(sourcemaps.write("."))  
+    .pipe(gulp.dest(paths.output + 'commonjs'));
 });
 
 gulp.task('build-amd', function () {
