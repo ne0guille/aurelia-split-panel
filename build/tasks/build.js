@@ -35,6 +35,7 @@ gulp.task('build-html', function() {
   
 gulp.task('build-css', function() {
   return gulp.src(paths.css)
+    .pipe(gulp.dest(paths.output))
     .pipe(gulp.dest(paths.output + 'es6'))
     .pipe(gulp.dest(paths.output + 'es2015'))
     .pipe(gulp.dest(paths.output + 'commonjs'))
