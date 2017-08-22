@@ -1,5 +1,8 @@
 Simply aurelia custom attribute to split screen using https://github.com/nathancahill/Split.js
 
+**demo**
+http://aurelia-split-panel.azurewebsites.net/
+
 **Installation**
 
 `npm install aurelia-split-panel --save`
@@ -14,8 +17,9 @@ Simply aurelia custom attribute to split screen using https://github.com/nathanc
 split-panel custom attribute needs to be placed on the parent of the panels to be splitted.
 Panels must specify an Id.
 
+If the parent doesnt't have a height and the clientHeight is also 0, it will take the childrens panel height;
 ``` 
-<div split-panel>
+<div split-panel style="height: 200px">
     <div id="panel1">
       <p>test</p>
       <a>test</a>
