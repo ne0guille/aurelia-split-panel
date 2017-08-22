@@ -13,7 +13,7 @@ export class SplitPanelCustomAttribute {
 
   private splitjs: any;
 
-  constructor(private element: Element, private taskQueue: TaskQueue) { }
+  constructor(private element: HTMLElement, private taskQueue: TaskQueue) { }
 
   attached() {
     this.split();
