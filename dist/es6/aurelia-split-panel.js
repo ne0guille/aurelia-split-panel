@@ -6,58 +6,55 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var aurelia_event_aggregator_1 = require("aurelia-event-aggregator");
 var aurelia_framework_1 = require("aurelia-framework");
-var Split = require("split.js");
-var splitDirection = { vertical: 'vertical', horizontal: 'horizontal' };
+var split_service_1 = require("./split-service");
+var split_constants_1 = require("./split-constants");
 var SplitPanelCustomAttribute = (function () {
-    function SplitPanelCustomAttribute(element, taskQueue) {
+    function SplitPanelCustomAttribute(element, taskQueue, ea, splitService) {
         this.element = element;
         this.taskQueue = taskQueue;
+        this.ea = ea;
+        this.splitService = splitService;
         this.minSize = 100;
         this.gutterSize = 10;
         this.vertical = false;
+        this.cursor = 'grabbing';
+        this.initialize = true;
+        this.subscriptions = [];
     }
     SplitPanelCustomAttribute.prototype.attached = function () {
-        this.split();
+        var _this = this;
+        this.options = {
+            sizes: this.sizes,
+            minSize: this.minSize,
+            gutterSize: this.gutterSize,
+            direction: this.vertical ? split_constants_1.splitDirection.vertical : split_constants_1.splitDirection.horizontal,
+            cursor: this.cursor
+        };
+        if (this.initialize)
+            this.taskQueue.queueMicroTask(function () { return _this.initializeSplit(); });
+        this.subscriptions.push(this.ea.subscribe(split_constants_1.splitEvents.create, function (options) { return _this.initializeSplit(options); }), this.ea.subscribe(split_constants_1.splitEvents.destroy, function () { return _this.destroySplit(); }), this.ea.subscribe(split_constants_1.splitEvents.setSize, function (sizes) { return _this.setSizes(sizes); }));
     };
     SplitPanelCustomAttribute.prototype.detached = function () {
-        this.splitjs.destroy();
+        this.destroySplit();
+        this.subscriptions.forEach(function (subs) { return subs.dispose(); });
     };
-    SplitPanelCustomAttribute.prototype.split = function () {
-        var _this = this;
-        this.taskQueue.queueMicroTask(function () {
-            var panelItems = _this.getPanelItems();
-            if (!(_this.vertical && _this.element.style.height && _this.element.clientHeight))
-                _this.setParentHeight();
-            _this.splitjs = Split(panelItems, {
-                sizes: _this.sizes,
-                minSize: _this.minSize,
-                gutterSize: _this.gutterSize,
-                direction: _this.vertical ? splitDirection.vertical : splitDirection.horizontal
-            });
-        });
+    SplitPanelCustomAttribute.prototype.initializeSplit = function (options) {
+        this.destroySplit();
+        var splitOptions = options || this.options;
+        this.splitjs = this.splitService.initialize(this.element, splitOptions);
     };
-    SplitPanelCustomAttribute.prototype.getElementHeight = function (element) {
-        return element.clientHeight || element.offsetHeight || Number.parseInt(element.style.height) || 0;
+    SplitPanelCustomAttribute.prototype.destroySplit = function () {
+        if (this.splitjs !== undefined)
+            this.splitjs = this.splitjs.destroy();
     };
-    SplitPanelCustomAttribute.prototype.setParentHeight = function () {
-        var parentHeight = String(this.getElementHeight(this.element));
-        var height = parentHeight === '0' ? this.getElementHeight(this.element.children[0]) : parentHeight;
-        this.element.style.height = height + "px";
-    };
-    SplitPanelCustomAttribute.prototype.getPanelItems = function () {
-        if (!(this.element.children && this.element.children.length))
-            return [];
-        var childrenArray = Array.from(this.element.children);
-        if (!this.vertical)
-            childrenArray.forEach(function (element) { return element.classList.add('split-horizontal'); });
-        return childrenArray.map(function (element) { return "#" + element.id; });
-    };
-    SplitPanelCustomAttribute.prototype.setSize = function (sizes) {
-        this.splitjs.setSizes(sizes);
+    SplitPanelCustomAttribute.prototype.setSizes = function (sizes) {
+        if (this.splitjs !== undefined)
+            this.splitjs.setSizes(sizes);
     };
     __decorate([
-        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay, primaryProperty: true })
     ], SplitPanelCustomAttribute.prototype, "sizes", void 0);
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
@@ -68,8 +65,14 @@ var SplitPanelCustomAttribute = (function () {
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
     ], SplitPanelCustomAttribute.prototype, "vertical", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
+    ], SplitPanelCustomAttribute.prototype, "cursor", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })
+    ], SplitPanelCustomAttribute.prototype, "initialize", void 0);
     SplitPanelCustomAttribute = __decorate([
-        aurelia_framework_1.inject(Element, aurelia_framework_1.TaskQueue)
+        aurelia_framework_1.inject(Element, aurelia_framework_1.TaskQueue, aurelia_event_aggregator_1.EventAggregator, split_service_1.SplitService)
     ], SplitPanelCustomAttribute);
     return SplitPanelCustomAttribute;
 }());

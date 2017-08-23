@@ -55,7 +55,7 @@ gulp.task('build-commonjs', function () {
     return tsProjectCJS.src()   
     .pipe(sourcemaps.init())
     .pipe(tsProjectCJS())  
-    .pipe(to5(assign({}, compilerOptions.es2015())))
+    .pipe(to5(assign({}, compilerOptions.commonjs())))
     .pipe(sourcemaps.write("."))  
     .pipe(gulp.dest(paths.output + 'commonjs'));
 });

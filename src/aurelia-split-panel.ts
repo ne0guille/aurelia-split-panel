@@ -1,64 +1,63 @@
+import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 import { bindable, bindingMode, inject, TaskQueue } from 'aurelia-framework';
 
-import * as Split from 'split.js';
+import { SplitOptions, SplitService } from './split-service';
+import { splitDirection, splitEvents } from "./split-constants";
 
-const splitDirection = { vertical: 'vertical', horizontal: 'horizontal' };
-
-@inject(Element, TaskQueue)
+@inject(Element, TaskQueue, EventAggregator, SplitService)
 export class SplitPanelCustomAttribute {
-  @bindable({ defaultBindingMode: bindingMode.oneWay }) sizes: Array<number>;
+  @bindable({ defaultBindingMode: bindingMode.oneWay, primaryProperty: true }) sizes: Array<number>;
   @bindable({ defaultBindingMode: bindingMode.oneWay }) minSize: Array<number> | number = 100;
   @bindable({ defaultBindingMode: bindingMode.oneWay }) gutterSize: number = 10;
   @bindable({ defaultBindingMode: bindingMode.oneWay }) vertical: boolean = false;
+  @bindable({ defaultBindingMode: bindingMode.oneWay }) cursor: string = 'grabbing';
+  @bindable({ defaultBindingMode: bindingMode.oneWay }) initialize: boolean = true;
 
   private splitjs: any;
+  private options: SplitOptions;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private element: HTMLElement, private taskQueue: TaskQueue) { }
+  constructor(private element: HTMLElement,
+    private taskQueue: TaskQueue,
+    private ea: EventAggregator,
+    private splitService: SplitService) { }
 
   attached() {
-    this.split();
+    this.options = {
+      sizes: this.sizes,
+      minSize: this.minSize,
+      gutterSize: this.gutterSize,
+      direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal,
+      cursor: this.cursor
+    };
+
+    if (this.initialize) this.taskQueue.queueMicroTask(() => this.initializeSplit());
+
+    this.subscriptions.push(
+      this.ea.subscribe(splitEvents.create, (options?: SplitOptions) => this.initializeSplit(options)),
+      this.ea.subscribe(splitEvents.destroy, () => this.destroySplit()),
+      this.ea.subscribe(splitEvents.setSize, (sizes: number[]) => this.setSizes(sizes))
+    );
   }
 
   detached() {
-    this.splitjs.destroy();
+    this.destroySplit();
+    this.subscriptions.forEach((subs: Subscription) => subs.dispose());
   }
 
-  split(): void {
-    this.taskQueue.queueMicroTask(() => {
-      const panelItems = this.getPanelItems();
-      if (!(this.vertical && this.element.style.height && this.element.clientHeight)) this.setParentHeight();
+  private initializeSplit(options?: SplitOptions) {
+    this.destroySplit();
 
-      this.splitjs = Split(panelItems, {
-        sizes: this.sizes,
-        minSize: this.minSize,
-        gutterSize: this.gutterSize,
-        direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal
-      });
-    });
+    const splitOptions = options || this.options;
+
+    this.splitjs = this.splitService.initialize(this.element, splitOptions);
   }
 
-  private getElementHeight(element): number {
-    return element.clientHeight || element.offsetHeight || Number.parseInt(element.style.height) || 0;
+  private destroySplit() {
+    if (this.splitjs !== undefined) this.splitjs = this.splitjs.destroy();
   }
 
-  private setParentHeight(): void {
-    const parentHeight = String(this.getElementHeight(this.element));
-    const height = parentHeight === '0' ? this.getElementHeight(this.element.children[0]) : parentHeight;
-
-    this.element.style.height = `${height}px`;
-  }
-
-  private getPanelItems(): string[] {
-    if (!(this.element.children && this.element.children.length)) return [];
-
-    const childrenArray = Array.from(this.element.children);
-
-    if (!this.vertical) childrenArray.forEach(element => element.classList.add('split-horizontal'));
-
-    return childrenArray.map(element => `#${element.id}`);
-  }
-
-  setSize(sizes: Array<number>): void {
-    this.splitjs.setSizes(sizes);
+  private setSizes(sizes: number[]){
+    if (this.splitjs !== undefined) this.splitjs.setSizes(sizes);
   }
 }

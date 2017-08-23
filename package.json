@@ -1,6 +1,6 @@
 {
   "name": "aurelia-split-panel",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "A split screen/panel aurelia plugin.",
   "keywords": [
     "aurelia",
@@ -76,6 +76,7 @@
     }
   },
   "dependencies": {
+    "aurelia-event-aggregator": "^1.0.1",
     "aurelia-framework": "1.1.4",
     "aurelia-pal": "1.3.0",
     "split.js": "1.3.5"
