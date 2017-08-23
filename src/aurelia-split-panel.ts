@@ -58,6 +58,6 @@ export class SplitPanelCustomAttribute {
   }
 
   private setSizes(sizes: number[]){
-    if (this.splitjs !== undefined) this.splitjs = this.splitjs.setSizes(sizes);
+    if (this.splitjs !== undefined) this.splitjs.setSizes(sizes);
   }
 }

@@ -60,7 +60,7 @@ var SplitPanelCustomAttribute = function () {
         if (this.splitjs !== undefined) this.splitjs = this.splitjs.destroy();
     };
     SplitPanelCustomAttribute.prototype.setSizes = function (sizes) {
-        if (this.splitjs !== undefined) this.splitjs = this.splitjs.setSizes(sizes);
+        if (this.splitjs !== undefined) this.splitjs.setSizes(sizes);
     };
     __decorate([aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay, primaryProperty: true })], SplitPanelCustomAttribute.prototype, "sizes", void 0);
     __decorate([aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.oneWay })], SplitPanelCustomAttribute.prototype, "minSize", void 0);
