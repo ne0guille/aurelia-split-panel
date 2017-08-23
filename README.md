@@ -40,10 +40,11 @@ If the parent doesnt't have a height and the clientHeight is also 0, it will tak
   minSize: Array<number> | number = 100; Minimum size of each element in pixels.
   gutterSize: number = 10; Gutter size in pixels.
   vertical: boolean = false; Direction to split: horizontal or vertical.
+  initialize: boolean = true; The split its initialize by default when the element is attached. 
 ```
 
 ``` 
-<div split-panel="sizes: [40, 60]; minSize: 200; gutterSize: 5; vertical: true">
+<div split-panel="sizes: [40, 60]; minSize: 200; gutterSize: 5; vertical: true; initialize: false ">
     <div id="panel1">
       <p>test</p>
       <a>test</a>
@@ -56,6 +57,13 @@ If the parent doesnt't have a height and the clientHeight is also 0, it will tak
     </div>
   </div>
   ```
+  
+  ** SplitService **
+  You can trigger programatically the following methods using the SplitService class.
+  create(options: SplitOptions): void;
+  setSizes(sizes: number[]): void;
+  destroy(): void;
+  
 
   **Dependencies**
   "split.js": https://nathancahill.github.io/Split.js/
