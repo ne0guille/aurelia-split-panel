@@ -58,12 +58,13 @@ If the parent doesnt't have a height and the clientHeight is also 0, it will tak
   </div>
   ```
   
-  ** SplitService **
+  **SplitService**
   You can trigger programatically the following methods using the SplitService class.
+  ```
   create(options: SplitOptions): void;
   setSizes(sizes: number[]): void;
   destroy(): void;
-  
+  ```
 
   **Dependencies**
   "split.js": https://nathancahill.github.io/Split.js/
