@@ -21,15 +21,15 @@ export class SplitService {
     this.ea = ea;
   }
 
-  public create(options: SplitOptions) {
+  public create(options: SplitOptions): void {
     this.ea.publish(splitEvents.create, options);
   }
 
-  public setSizes(sizes) {
+  public setSizes(sizes: number[]): void {
     this.ea.publish(splitEvents.setSize, sizes);
   }
 
-  public destroy() {
+  public destroy(): void {
     this.ea.publish(splitEvents.destroy);
   }
 
