@@ -47,6 +47,12 @@ export class SplitPanelCustomAttribute {
     this.subscriptions.forEach((subs: Subscription) => subs.dispose());
   }
 
+  verticalChanged(newValue) {
+    if (newValue !== undefined && this.options) {
+      this.options.direction = newValue;
+    }
+  }
+
   private initializeSplit(options?: SplitOptions) {
     this.destroySplit();
 
@@ -59,7 +65,7 @@ export class SplitPanelCustomAttribute {
     if (this.splitjs !== undefined) this.splitjs = this.splitjs.destroy();
   }
 
-  private setSizes(sizes: number[]){
+  private setSizes(sizes: number[]) {
     if (this.splitjs !== undefined) this.splitjs.setSizes(sizes);
   }
 }

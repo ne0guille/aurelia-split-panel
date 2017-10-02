@@ -55,6 +55,11 @@ var SplitPanelCustomAttribute = function () {
             return subs.dispose();
         });
     };
+    SplitPanelCustomAttribute.prototype.verticalChanged = function (newValue) {
+        if (newValue !== undefined && this.options) {
+            this.options.direction = newValue;
+        }
+    };
     SplitPanelCustomAttribute.prototype.initializeSplit = function (options) {
         this.destroySplit();
         var splitOptions = options || this.options;

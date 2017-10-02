@@ -41,6 +41,11 @@ var SplitPanelCustomAttribute = (function () {
         this.destroySplit();
         this.subscriptions.forEach(function (subs) { return subs.dispose(); });
     };
+    SplitPanelCustomAttribute.prototype.verticalChanged = function (newValue) {
+        if (newValue !== undefined && this.options) {
+            this.options.direction = newValue;
+        }
+    };
     SplitPanelCustomAttribute.prototype.initializeSplit = function (options) {
         this.destroySplit();
         var splitOptions = options || this.options;
