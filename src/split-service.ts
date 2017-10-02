@@ -36,7 +36,6 @@ export class SplitService {
   public initialize(element: HTMLElement, options: SplitOptions) {
     const isVertical = options.direction === splitDirection.vertical;
     const panelItems = this.getPanelItems(element, isVertical);
-
     this.setParentHeight(element, isVertical);
 
     return Split(panelItems, options);
@@ -48,7 +47,7 @@ export class SplitService {
     const childrenArray = Array.from(element.children);
     const splitPanelClass = isVertical ? splitClass.vertical : splitClass.horizontal;
     
-    childrenArray.forEach(element => element.classList.add('split-horizontal'));
+    childrenArray.forEach(element => element.classList.add(splitPanelClass));
 
     return childrenArray.map(element => `#${element.id}`);
   }

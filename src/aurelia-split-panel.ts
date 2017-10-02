@@ -23,11 +23,13 @@ export class SplitPanelCustomAttribute {
     private splitService: SplitService) { }
 
   attached() {
+    const isVertical = typeof this.vertical === "string" ? JSON.parse(this.vertical) : this.vertical;
+
     this.options = {
       sizes: this.sizes,
       minSize: this.minSize,
       gutterSize: this.gutterSize,
-      direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal,
+      direction: isVertical ? splitDirection.vertical : splitDirection.horizontal,
       cursor: this.cursor
     };
 
