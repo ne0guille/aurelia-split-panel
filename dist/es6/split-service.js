@@ -33,8 +33,8 @@ var SplitService = (function () {
         if (!(element.children && element.children.length))
             return [];
         var childrenArray = Array.from(element.children);
-        if (!isVertical)
-            childrenArray.forEach(function (element) { return element.classList.add('split-horizontal'); });
+        var splitPanelClass = isVertical ? split_constants_1.splitClass.vertical : split_constants_1.splitClass.horizontal;
+        childrenArray.forEach(function (element) { return element.classList.add(splitPanelClass); });
         return childrenArray.map(function (element) { return "#" + element.id; });
     };
     SplitService.prototype.setParentHeight = function (element, isVertical) {

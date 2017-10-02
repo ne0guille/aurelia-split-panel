@@ -25,11 +25,12 @@ var SplitPanelCustomAttribute = (function () {
     }
     SplitPanelCustomAttribute.prototype.attached = function () {
         var _this = this;
+        var isVertical = typeof this.vertical === "string" ? JSON.parse(this.vertical) : this.vertical;
         this.options = {
             sizes: this.sizes,
             minSize: this.minSize,
             gutterSize: this.gutterSize,
-            direction: this.vertical ? split_constants_1.splitDirection.vertical : split_constants_1.splitDirection.horizontal,
+            direction: isVertical ? split_constants_1.splitDirection.vertical : split_constants_1.splitDirection.horizontal,
             cursor: this.cursor
         };
         if (this.initialize)
@@ -39,6 +40,11 @@ var SplitPanelCustomAttribute = (function () {
     SplitPanelCustomAttribute.prototype.detached = function () {
         this.destroySplit();
         this.subscriptions.forEach(function (subs) { return subs.dispose(); });
+    };
+    SplitPanelCustomAttribute.prototype.verticalChanged = function (newValue) {
+        if (newValue !== undefined && this.options) {
+            this.options.direction = newValue;
+        }
     };
     SplitPanelCustomAttribute.prototype.initializeSplit = function (options) {
         this.destroySplit();

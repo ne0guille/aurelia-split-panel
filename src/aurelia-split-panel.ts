@@ -23,11 +23,13 @@ export class SplitPanelCustomAttribute {
     private splitService: SplitService) { }
 
   attached() {
+    const isVertical = typeof this.vertical === "string" ? JSON.parse(this.vertical) : this.vertical;
+
     this.options = {
       sizes: this.sizes,
       minSize: this.minSize,
       gutterSize: this.gutterSize,
-      direction: this.vertical ? splitDirection.vertical : splitDirection.horizontal,
+      direction: isVertical ? splitDirection.vertical : splitDirection.horizontal,
       cursor: this.cursor
     };
 
@@ -45,6 +47,12 @@ export class SplitPanelCustomAttribute {
     this.subscriptions.forEach((subs: Subscription) => subs.dispose());
   }
 
+  verticalChanged(newValue) {
+    if (newValue !== undefined && this.options) {
+      this.options.direction = newValue;
+    }
+  }
+
   private initializeSplit(options?: SplitOptions) {
     this.destroySplit();
 
@@ -57,7 +65,7 @@ export class SplitPanelCustomAttribute {
     if (this.splitjs !== undefined) this.splitjs = this.splitjs.destroy();
   }
 
-  private setSizes(sizes: number[]){
+  private setSizes(sizes: number[]) {
     if (this.splitjs !== undefined) this.splitjs.setSizes(sizes);
   }
 }

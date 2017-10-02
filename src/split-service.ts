@@ -3,7 +3,7 @@ import * as Split from 'split.js';
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
-import { splitEvents, splitDirection } from './split-constants';
+import { splitClass, splitEvents, splitDirection } from './split-constants';
 
 export interface SplitOptions {
   sizes: Array<number>;
@@ -36,7 +36,6 @@ export class SplitService {
   public initialize(element: HTMLElement, options: SplitOptions) {
     const isVertical = options.direction === splitDirection.vertical;
     const panelItems = this.getPanelItems(element, isVertical);
-
     this.setParentHeight(element, isVertical);
 
     return Split(panelItems, options);
@@ -46,8 +45,9 @@ export class SplitService {
     if (!(element.children && element.children.length)) return [];
 
     const childrenArray = Array.from(element.children);
-
-    if (!isVertical) childrenArray.forEach(element => element.classList.add('split-horizontal'));
+    const splitPanelClass = isVertical ? splitClass.vertical : splitClass.horizontal;
+    
+    childrenArray.forEach(element => element.classList.add(splitPanelClass));
 
     return childrenArray.map(element => `#${element.id}`);
   }
