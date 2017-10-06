@@ -23,7 +23,7 @@ export class SplitPanelCustomAttribute {
     private splitService: SplitService) { }
 
   attached() {
-    const isVertical = typeof this.vertical === "string" ? JSON.parse(this.vertical) : this.vertical;
+    const isVertical: boolean = typeof this.vertical === "string" ? JSON.parse(this.vertical) : this.vertical;
 
     this.options = {
       sizes: this.sizes,

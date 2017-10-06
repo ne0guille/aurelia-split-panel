@@ -44,7 +44,7 @@ If the parent doesnt't have a height and the clientHeight is also 0, it will tak
 ```
 
 ``` 
-<div split-panel="sizes: [40, 60]; minSize: 200; gutterSize: 5; vertical: true; initialize: false ">
+<div split-panel="sizes.bind: sizesArray; min-size.bind: minSizeProp; gutterSize: 5; vertical: true; initialize: false ">
     <div id="panel1">
       <p>test</p>
       <a>test</a>
