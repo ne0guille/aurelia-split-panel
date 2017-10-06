@@ -46,7 +46,7 @@ export class SplitService {
 
     const childrenArray = Array.from(element.children);
     const splitPanelClass = isVertical ? splitClass.vertical : splitClass.horizontal;
-    
+
     childrenArray.forEach(element => element.classList.add(splitPanelClass));
 
     return childrenArray.map(element => `#${element.id}`);
