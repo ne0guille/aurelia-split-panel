@@ -1,6 +1,6 @@
 {
   "name": "aurelia-split-panel",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "A split screen/panel aurelia plugin.",
   "keywords": [
     "aurelia",
@@ -10,7 +10,7 @@
     "pane",
     "screen"
   ],
-  "homepage": "http://aurelia.io",
+  "homepage": "https://ne0guille-aurelia-split-panel.azurewebsites.net/",
   "bugs": {
     "url": "https://github.com/ne0guille/aurelia-split-panel/issues"
   },

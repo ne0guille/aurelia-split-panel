@@ -1,7 +1,7 @@
 Simply aurelia custom attribute to split screen using https://github.com/nathancahill/Split.js
 
 **demo**
-http://aurelia-split-panel.azurewebsites.net/
+https://ne0guille-aurelia-split-panel.azurewebsites.net/
 
 **Installation**
 
